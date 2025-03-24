@@ -73,38 +73,10 @@ Cela va afficher les 100 dernière lignes de logs générées par l'application 
 
 Pour configurer l'application, vous devez créer et personnaliser un fichier ``/opt/pod/convergence-bacon-docker/.env`` (cf section [Installation](#installation)). Les paramètres à placer dans ce fichier ``.env`` et des exemples de valeurs sont indiqués dans le fichier [``.env-dist``](https://github.com/abes-esr/convergence-bacon-docker/blob/develop/.env-dist)
 
-## Sauvegardes
-
-Les éléments suivants sont à sauvegarder:
-- ``.env`` : contient la configuration spécifique de notre déploiement
-- ``volumes/item-db/dump/`` : contient les dumps quotidiens de la base de données postgresql de item
-
-Le répertoire suivant est à exclure des sauvegardes :
-- ``volumes/item-db/pgdata/`` : contient les données binaires de la base de données postgresql item
-
-### Restauration depuis une sauvegarde
-
-Restaurez le dernier dump de la base de données postgresql de logskbart :
-- récupérer le dernier dump généré par ``logskbart-db-dumper`` depuis le système de sauvegarde (le fichier dump ressemble à ceci ``pgsql_logskbart_logskbart-db_20220801-143201.sql.gz``) et placez le fichier dump récupéré (sans le décompresser) dans ``=volumes/logskbart-db/dump/`` sur la machine qui doit héberger la base de données
-- ensuite lancez uniquement les conteneurs ``logskbart-db`` et ``logskbart-db-dumper`` :
-   ```bash
-   docker-compose up -d logskbart-db logskbart-db-dumper
-   ```
-- lancez le script de restauration ``restore`` comme ceci et suivez les instructions :
-   ```bash
-   docker exec -it logskbart-db-dumper restore
-   ```
-- C'est bon, la base de données logskbart est alors restaurée
-
-Lancez alors toute les applications et vérifiez qu'elle fonctionne bien :
-```bash
-docker-compose up -d
-```
-
 ## Déploiement continu
 
 Les objectifs des déploiements continus de convergence-bacon sont les suivants (cf [poldev](https://github.com/abes-esr/abes-politique-developpement/blob/main/01-Gestion%20du%20code%20source.md#utilisation-des-branches)) :
-- git push sur la branche ``develop`` provoque un déploiement automatique sur le serveur ``cafeier-dev``
+- git push sur la branche ``develop`` provoque un déploiement automatique sur le serveur ``diplo2-dev``
 - git push (le plus couramment merge) sur la branche ``main`` provoque un déploiement automatique sur le serveur ``cafeier-test``
 - git tag X.X.X (associé à une release) sur la branche ``main`` permet un déploiement (non automatique) sur le serveur ``cafeier-prod`` / ! \pas encore en prod
 
@@ -132,3 +104,6 @@ Ou bien [lancer le conteneur ``kbart2kafka-watchtower``](https://github.com/abes
 
 Les codes de source de kbart2kafka sont ici :
 - https://github.com/abes-esr/kbart2kafka-api : code source de l'API de kbart2kafka
+
+
+NB : 8000 kafdrop, 8001 kafkaconnect, 8002 registry, 8003 grafana, 9021 control center
