@@ -38,7 +38,7 @@ services:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
       - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=kbart2kafka"
+      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-kbart2kafka"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
@@ -86,7 +86,7 @@ services:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
       - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=best-ppn-api"
+      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-best-ppn-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
@@ -127,7 +127,7 @@ services:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
       - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=kafka2sudoc"
+      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-kafka2sudoc"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
@@ -159,7 +159,7 @@ services:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
       - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=bacon-provider-api"
+      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-bacon-provider-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
@@ -200,7 +200,7 @@ services:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
       - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=logskbart-api"
+      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-logskbart-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
@@ -253,12 +253,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
-    labels:
-      # pour envoyer les logs dans le puits de log de l'abes
-      - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
-      - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=logskbart-elasticsearch"
-      - "co.elastic.logs/processors.add_fields.fields.abes_middleware=elasticsearch"
 
 
 
@@ -278,12 +272,7 @@ services:
       ELASTICSEARCH_HOSTS: http://logskbart-elasticsearch:9200
     ports:
       - ${LOGSKBART_KIBANA_PORT}:5601
-    labels:
-      # pour envoyer les logs dans le puits de log de l'abes
-      - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
-      - "co.elastic.logs/processors.add_fields.target="
-      - "co.elastic.logs/processors.add_fields.fields.abes_appli=logskbart-kibana"
-      - "co.elastic.logs/processors.add_fields.fields.abes_middleware=kibana"
+
 
   #######################################
   # convergence-bacon-watchtower
