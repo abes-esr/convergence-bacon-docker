@@ -291,43 +291,27 @@ services:
       retries: 120
 
   ##################################
+  #  logskbart-init
   #  Config de ES
   ##################################
   logskbart-init:
+    container_name: logskbart-init
     image: curlimages/curl:8.6.0
     depends_on:
       - logskbart-elasticsearch
     entrypoint: >
       sh -c "
-        echo 'Attente qu’Elasticsearch soit UP...' &&
+        echo '⏳ Attente qu’Elasticsearch soit UP...' &&
         until curl -s http://logskbart-elasticsearch:9200 >/dev/null; do sleep 5; done &&
-        echo 'Elasticsearch disponible, création ILM...' &&
+        echo '🚀 Elasticsearch disponible, création ILM...' &&
 
-        # Création de la policy
-        curl -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logskbart-retention
-          -H 'Content-Type: application/json'
-          -d '{
-                \"policy\": {
-                  \"phases\": {
-                    \"delete\": {
-                      \"min_age\": \"60d\",
-                      \"actions\": {\"delete\": {}}
-                    }
-                  }
-                }
-              }' &&
+        curl -s -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logkbart-retention \
+          -H 'Content-Type: application/json' \
+          -d '{\"policy\":{\"phases\":{\"delete\":{\"min_age\":\"60d\",\"actions\":{\"delete\":{}}}}}}' &&
 
-        # Création d’un template d’index qui applique automatiquement la policy
-        curl -X PUT http://logskbart-elasticsearch:9200/_index_template/logskbart-template
-          -H 'Content-Type: application/json'
-          -d '{
-                \"index_patterns\": [\"logskbart-logs*\"],
-                \"template\": {
-                  \"settings\": {
-                    \"index.lifecycle.name\": \"logskbart-retention\"
-                  }
-                }
-              }'
+        curl -s -X PUT http://logskbart-elasticsearch:9200/_index_template/logkbart-template \
+          -H 'Content-Type: application/json' \
+          -d '{\"index_patterns\":[\"logkbart*\"],\"template\":{\"settings\":{\"index.lifecycle.name\":\"logkbart-retention\"}}}'
       "
 
   #######################################
