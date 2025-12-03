@@ -315,6 +315,7 @@ services:
              echo 'Création ILM...' &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logkbart-retention -H 'Content-Type: application/json' -d @/logskbart-init/ilm_policy.json &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/_index_template/logkbart-template -H 'Content-Type: application/json' -d @/logskbart-init/index_template.json
+      "
 
 
   #######################################
