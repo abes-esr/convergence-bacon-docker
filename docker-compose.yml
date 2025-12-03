@@ -309,8 +309,8 @@ services:
              if curl -s -o /dev/null -w '%{http_code}' -I http://logskbart-elasticsearch:9200/logkbart | grep -q '200'; then
              echo 'Index déjà existant, skip création.';
              else
-             echo 'Création index...' &&
-             curl -s -X PUT http://logskbart-elasticsearch:9200/logkbart" -H 'Content-Type: application/json' -d @/logskbart-init/create_index.json &&
+             echo 'Création index...'
+             curl -s -X PUT http://logskbart-elasticsearch:9200/logkbart" -H 'Content-Type: application/json' -d @/logskbart-init/create_index.json
              fi &&
              echo 'Création ILM...' &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logkbart-retention -H 'Content-Type: application/json' -d @/logskbart-init/ilm_policy.json &&
