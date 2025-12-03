@@ -1,0 +1,10 @@
+{
+  "index_patterns": [
+    "logkbart*"
+  ],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "logkbart-retention"
+    }
+  }
+}
