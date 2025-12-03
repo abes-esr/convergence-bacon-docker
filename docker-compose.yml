@@ -79,53 +79,53 @@ services:
       # pour que les mises à jour de cette image soient auto-déployées par watchtower
       - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
 
-#  #########################################
-#  # best-ppn-api
-#  # API en spring
-#  best-ppn-api:
-#    image: abesesr/convergence:${BESTPPNAPI_VERSION}
-#    container_name: best-ppn-api
-#    restart: unless-stopped
-#    mem_limit: ${MEM_LIMIT}
-#    volumes:
-#      - ${LOGSKBART_API_PATH_TSVFILE}:/app/tempLog/
-#    ports:
-#      - ${BESTPPNAPI_PORT}:8083
-#    environment:
-#      # Pour basculer sur bon application-xxx.properties préalablement embarqué
-#      # dans le code ici:
-#      # https://github.com/abes-esr/abes-hello-back/tree/develop/web/src/main/resources/
-#      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-#      # Pour surcharger les paramètres spring du application-xxx.properties
-#      # ci-dessous via le système de .env de docker
-#      # https://www.linkedin.com/pulse/externalizing-properties-spring-boot-application-docker-phani-bushan
-#      # pour la liste de tous les champs qu'on peut surcharger,
-#      # voir le contenu des application-xxx.properties embarqués dans le code sources
-#      ABES_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
-#      ABES_KAFKA_REGISTRY_URL: ${KAFKA_REGISTRY_URL}
-#      ABES_KAFKA_CONCURRENCY_NBTHREAD: ${KAFKA_CONCURRENCY_NBTHREAD}
-#      SPRING_DATASOURCE_BASEXML_JDBCURL: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_JDBCURL}
-#      SPRING_DATASOURCE_BASEXML_USERNAME: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_USERNAME}
-#      SPRING_DATASOURCE_BASEXML_PASSWORD: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_PASSWORD}
-#      SPRING_DATASOURCE_BACON_JDBCURL: ${BACON_JDBCURL}
-#      SPRING_DATASOURCE_BACON_USERNAME: ${BACON_USERNAME}
-#      SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
-#      URL_ONLINEID2PPN: ${BESTPPNAPI_URL_ONLINEID_2_PPN}
-#      URL_PRINTID2PPN: ${BESTPPNAPI_URL_PRINTID_2_PPN}
-#      URL_DAT2PPN: ${BESTPPNAPI_URL_DAT_2_PPN}
-#      URL_DOI2PPN: ${BESTPPNAPI_URL_DOI_2_PPN}
-#      MAIL_WS_URL: ${MAIL_WS_URL}
-#      MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_BACON}
-#      SERVEUR_URL: ${SERVEUR_URL}
-#      SPRING_JPA_BACON_SHOW-SQL: false
-#    labels:
-#      # pour envoyer les logs dans le puits de log de l'abes
-#      - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
-#      - "co.elastic.logs/processors.add_fields.target="
-#      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-best-ppn-api"
-#      - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-#      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-#      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+  #  #########################################
+  #  # best-ppn-api
+  #  # API en spring
+  #  best-ppn-api:
+  #    image: abesesr/convergence:${BESTPPNAPI_VERSION}
+  #    container_name: best-ppn-api
+  #    restart: unless-stopped
+  #    mem_limit: ${MEM_LIMIT}
+  #    volumes:
+  #      - ${LOGSKBART_API_PATH_TSVFILE}:/app/tempLog/
+  #    ports:
+  #      - ${BESTPPNAPI_PORT}:8083
+  #    environment:
+  #      # Pour basculer sur bon application-xxx.properties préalablement embarqué
+  #      # dans le code ici:
+  #      # https://github.com/abes-esr/abes-hello-back/tree/develop/web/src/main/resources/
+  #      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+  #      # Pour surcharger les paramètres spring du application-xxx.properties
+  #      # ci-dessous via le système de .env de docker
+  #      # https://www.linkedin.com/pulse/externalizing-properties-spring-boot-application-docker-phani-bushan
+  #      # pour la liste de tous les champs qu'on peut surcharger,
+  #      # voir le contenu des application-xxx.properties embarqués dans le code sources
+  #      ABES_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
+  #      ABES_KAFKA_REGISTRY_URL: ${KAFKA_REGISTRY_URL}
+  #      ABES_KAFKA_CONCURRENCY_NBTHREAD: ${KAFKA_CONCURRENCY_NBTHREAD}
+  #      SPRING_DATASOURCE_BASEXML_JDBCURL: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_JDBCURL}
+  #      SPRING_DATASOURCE_BASEXML_USERNAME: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_USERNAME}
+  #      SPRING_DATASOURCE_BASEXML_PASSWORD: ${BESTPPNAPI_SPRING_DATASOURCE_BASEXML_PASSWORD}
+  #      SPRING_DATASOURCE_BACON_JDBCURL: ${BACON_JDBCURL}
+  #      SPRING_DATASOURCE_BACON_USERNAME: ${BACON_USERNAME}
+  #      SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
+  #      URL_ONLINEID2PPN: ${BESTPPNAPI_URL_ONLINEID_2_PPN}
+  #      URL_PRINTID2PPN: ${BESTPPNAPI_URL_PRINTID_2_PPN}
+  #      URL_DAT2PPN: ${BESTPPNAPI_URL_DAT_2_PPN}
+  #      URL_DOI2PPN: ${BESTPPNAPI_URL_DOI_2_PPN}
+  #      MAIL_WS_URL: ${MAIL_WS_URL}
+  #      MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_BACON}
+  #      SERVEUR_URL: ${SERVEUR_URL}
+  #      SPRING_JPA_BACON_SHOW-SQL: false
+  #    labels:
+  #      # pour envoyer les logs dans le puits de log de l'abes
+  #      - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
+  #      - "co.elastic.logs/processors.add_fields.target="
+  #      - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-best-ppn-api"
+  #      - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
+  #      # pour que les mises à jour de cette image soient auto-déployées par watchtower
+  #      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
 
   #########################################
   # kafka2sudoc
@@ -305,8 +305,13 @@ services:
     entrypoint: >
       sh -c "echo 'Attente...' &&
              until curl -s http://logskbart-elasticsearch:9200 >/dev/null; do sleep 5; done &&
+             echo 'Vérification de l’existence de l’index...' &&
+             if curl -s -o /dev/null -w '%{http_code}' -I http://logskbart-elasticsearch:9200/logkbart | grep -q '200'; then
+             echo 'Index déjà existant, skip création.';
+             else
              echo 'Création index...' &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/logkbart" -H 'Content-Type: application/json' -d @/logskbart-init/create_index.json &&
+             fi &&
              echo 'Création ILM...' &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logkbart-retention -H 'Content-Type: application/json' -d @/logskbart-init/ilm_policy.json &&
              curl -s -X PUT http://logskbart-elasticsearch:9200/_index_template/logkbart-template -H 'Content-Type: application/json' -d @/logskbart-init/index_template.json &&"
