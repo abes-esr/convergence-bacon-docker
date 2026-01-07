@@ -161,6 +161,7 @@ services:
       SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
       MAIL_WS_URL: ${MAIL_WS_URL}
       MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_SUDOC}
+      _JAVA_OPTIONS: ${KAFKA2SUDOC_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
