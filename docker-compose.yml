@@ -34,6 +34,7 @@ services:
       SPRING_DATASOURCE_BACON_JDBCURL: ${BACON_JDBCURL}
       SPRING_DATASOURCE_BACON_USERNAME: ${BACON_USERNAME}
       SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
+      _JAVA_OPTIONS: ${KBART2KAFKA_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
@@ -70,6 +71,7 @@ services:
       SPRING_DATASOURCE_BACON_JDBCURL: ${BACON_JDBCURL}
       SPRING_DATASOURCE_BACON_USERNAME: ${BACON_USERNAME}
       SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
+      _JAVA_OPTIONS: ${KBART2KAFKA_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
