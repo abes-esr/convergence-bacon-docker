@@ -85,7 +85,7 @@ services:
   # best-ppn-api
   # API en spring
   best-ppn-api:
-    image: abesesr/convergence:${BESTPPNAPI_VERSION}
+    image: abesesr/convergence:${BEST_PPN_API_VERSION}
     container_name: best-ppn-api
     restart: unless-stopped
     mem_limit: ${MEM_LIMIT}
