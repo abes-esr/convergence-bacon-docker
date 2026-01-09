@@ -238,7 +238,7 @@ services:
     ports:
       - ${BACON_PROVIDER_API_HTTP_PORT}:8084
     volumes:
-      - ${PATH_LIBS}/ojdbc.jar:/bacon/lib/ojdbc.jar
+      - ${PATH_LIBS}/ojdbc.jar:/bacon-provider-api/lib/ojdbc.jar
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=${LOG_ELASTIC_ENABLED}"
