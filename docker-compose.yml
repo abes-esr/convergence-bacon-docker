@@ -389,7 +389,7 @@ services:
   # Conteneur chargé de mettre à jour automatiquement toutes les N secondes
   # les images docker des conteneurs surveillés (via le système de label/scope de watchtower)
   convergence-bacon-watchtower:
-    image: containrrr/watchtower:1.4.0
+    image: nickfedor/watchtower:1.13.1
     container_name: convergence-bacon-watchtower
     restart: unless-stopped
     mem_limit: ${MEM_LIMIT}
