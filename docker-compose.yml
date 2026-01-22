@@ -261,7 +261,7 @@ services:
     restart: unless-stopped
     mem_limit: ${MEM_LIMIT}
     volumes:
-      - ${LOGSKBART_API_PATH_TSVFILE}:/app/tempLog/
+      - ${LOGSKBART_API_PATH_TSVFILE}:/tempLog/
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
       # dans le code ici:
