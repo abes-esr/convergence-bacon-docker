@@ -91,6 +91,7 @@ services:
     mem_limit: ${MEM_LIMIT}
     volumes:
       - ${LOGSKBART_API_PATH_TSVFILE}:/app/tempLog/
+      - ${PATH_LIBS}/ojdbc.jar:/best-ppn-api/lib/ojdbc.jar
     ports:
       - ${BEST_PPN_API_HTTP_PORT}:8083
       - "15091:8084"
