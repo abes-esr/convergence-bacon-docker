@@ -182,6 +182,8 @@ services:
     restart: unless-stopped
     mem_limit: ${MEM_LIMIT}
     command: tail -F /dev/null
+    volumes:
+      - ${PATH_LIBS}/ojdbc.jar:/kafka2sudoc/lib/ojdbc.jar
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
       # dans le code ici:
