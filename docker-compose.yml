@@ -55,6 +55,7 @@ services:
     mem_limit: ${MEM_LIMIT}
     volumes:
       - ${LOGSKBART_API_PATH_TSVFILE}:/app/kbart/
+      - ${PATH_LIBS}/ojdbc.jar:/kbart2kafka/lib/ojdbc.jar
     ports:
       - ${KBART2KAFKA2_PORT}:8080
     environment:
