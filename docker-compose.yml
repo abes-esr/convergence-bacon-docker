@@ -124,6 +124,7 @@ services:
       MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_BACON}
       SERVEUR_URL: ${SERVEUR_URL}
       SPRING_JPA_BACON_SHOW-SQL: false
+      LOGGING_LEVEL_FR_ABES_BESTPPN: ${BEST_PPN_API_LOGGING_LEVEL}
       _JAVA_OPTIONS: ${BEST_PPN_API_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
