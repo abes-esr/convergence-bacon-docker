@@ -4,7 +4,7 @@
 
 Ce dépôt contient la configuration docker 🐳 pour déployer l'échosystème des applications convergence Kbart2Kafka (cf sources de l'[api](https://github.com/abes-esr/kbart2kafka-api)) en local sur le poste d'un développeur, ou bien sur les serveurs de dev, test et prod.
 
-Architecture du service :
+Architecture du service :  
 <img width="828" height="911" alt="convergence drawio" src="https://github.com/user-attachments/assets/056a317b-8e49-44e5-ba89-da642c2a73c9" />
 ## contenu du docker-compose.yml
 Le docker-compose.yml définit les containers suivants (hors Watchtower)
