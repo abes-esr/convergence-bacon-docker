@@ -42,8 +42,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-kbart2kafka"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   ############################
   # kbart2kafka 2
@@ -80,8 +81,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-kbart2kafka"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   #########################################
   # best-ppn-api
@@ -132,8 +134,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-best-ppn-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   ############################
   # sudoc-api
@@ -172,8 +175,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-sudoc-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   #########################################
   # kafka2sudoc
@@ -215,8 +219,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-kafka2sudoc"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   #########################################
   # bacon-provider-api
@@ -250,8 +255,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-bacon-provider-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
   ############################
   # logskbart-api
@@ -292,8 +298,9 @@ services:
       - "co.elastic.logs/processors.add_fields.target="
       - "co.elastic.logs/processors.add_fields.fields.abes_appli=convergence-logskbart-api"
       - "co.elastic.logs/processors.add_fields.fields.abes_middleware=java-spring"
-      # pour que les mises à jour de cette image soient auto-déployées par watchtower
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      # pour que les mises à jour de cette image soient auto-déployées par wud
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
 
 
 
@@ -343,6 +350,9 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+    labels:
+      - "wud.watch=true"
+      - "wud.trigger.exclude=docker.upgrade,slack.notif"
 
   ##################################
   #  logskbart-init
@@ -387,32 +397,6 @@ services:
       ELASTICSEARCH_HOSTS: http://logskbart-elasticsearch:9200
     ports:
       - ${LOGSKBART_KIBANA_PORT}:5601
-
-
-  #######################################
-  # convergence-bacon-watchtower
-  # Conteneur chargé de mettre à jour automatiquement toutes les N secondes
-  # les images docker des conteneurs surveillés (via le système de label/scope de watchtower)
-  convergence-bacon-watchtower:
-    image: nickfedor/watchtower:1.13.1
-    container_name: convergence-bacon-watchtower
-    restart: unless-stopped
-    mem_limit: ${MEM_LIMIT}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      WATCHTOWER_CLEANUP: "true"
-      WATCHTOWER_POLL_INTERVAL: 60
-      WATCHTOWER_DEBUG: "false"
-      WATCHTOWER_NO_STARTUP_MESSAGE: "true"
-      WATCHTOWER_WARN_ON_HEAD_FAILURE: "never"
-      WATCHTOWER_RUN_ONCE: ${WATCHTOWER_RUN_ONCE}
-      WATCHTOWER_NOTIFICATIONS: "slack"
-      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: ${WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL}
-      WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: ${WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER}
-      WATCHTOWER_NOTIFICATION_SLACK_CHANNEL: "#notif-convergence"
-      WATCHTOWER_SCOPE: "convergence-bacon-watchtower-scope"
-      REPO_USER: ${WATCHTOWER_DOCKERHUB_USER}
-      REPO_PASS: ${WATCHTOWER_DOCKERHUB_PASS}
     labels:
-      - "com.centurylinklabs.watchtower.scope=convergence-bacon-watchtower-scope"
+      - "wud.watch=true"
+      - "wud.trigger.exclude=docker.upgrade,slack.notif"
