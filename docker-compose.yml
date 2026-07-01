@@ -98,6 +98,7 @@ services:
       - ${PATH_LIBS}/ojdbc.jar:/best-ppn-api/lib/ojdbc.jar
     ports:
       - ${BEST_PPN_API_HTTP_PORT}:8083
+      - "1099:1099"
       - "15091:8084"
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
@@ -165,7 +166,6 @@ services:
       _JAVA_OPTIONS: ${SUDOC_API_JAVA_OPTIONS}
     ports:
       - ${SUDOC_API_HTTP_PORT}:8082
-      - "1099:1099"
       - "15090:8083"
     volumes:
       - ${PATH_LIBS}/ojdbc.jar:/sudoc/lib/ojdbc.jar
