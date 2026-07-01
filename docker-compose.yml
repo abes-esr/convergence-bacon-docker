@@ -133,7 +133,7 @@ services:
       ### OpenTelemetry ###
       #####################
       # Nom du Container (équivalent à container name)
-      OTEL_SERVICE_NAME: "convergence-best-ppn-api"
+      OTEL_SERVICE_NAME: "best-ppn-api"
       # Environnement (dev, test, prod)
       OTEL_ENVIRONMENT: "${OTEL_ENVIRONMENT}"
       # Namespace (équivalent au nom de l'application, commun aux différents conteneurs de l'application)
@@ -141,7 +141,7 @@ services:
       # Version (équivalent à image tag)
       OTEL_VERSION: "${BEST_PPN_API_VERSION}"
       # Attributs OpenTelemetry
-      OTEL_RESOURCE_ATTRIBUTES: "service.name=convergence-best-ppn-api,deployment.environment=${OTEL_ENVIRONMENT},service.namespace=${OTEL_NAMESPACE},host.name=${HOSTNAME},service.version=${BEST_PPN_API_VERSION}"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=best-ppn-api,deployment.environment=${OTEL_ENVIRONMENT},service.namespace=${OTEL_NAMESPACE},host.name=${HOSTNAME},service.version=${BEST_PPN_API_VERSION}"
       OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
       OTEL_METRICS_EXPORTER: ${OTEL_METRICS_EXPORTER}
