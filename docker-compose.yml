@@ -129,6 +129,25 @@ services:
       SPRING_JPA_BACON_SHOW-SQL: false
       LOGGING_LEVEL_FR_ABES_BESTPPN: ${BEST_PPN_API_LOGGING_LEVEL}
       _JAVA_OPTIONS: ${BEST_PPN_API_JAVA_OPTIONS}
+      #####################
+      ### OpenTelemetry ###
+      #####################
+      # Nom du Container (équivalent à container name)
+      OTEL_SERVICE_NAME: "convergence-best-ppn-api"
+      # Environnement (dev, test, prod)
+      OTEL_ENVIRONMENT: "${OTEL_ENVIRONMENT}"
+      # Namespace (équivalent au nom de l'application, commun aux différents conteneurs de l'application)
+      OTEL_NAMESPACE: "${OTEL_NAMESPACE}"
+      # Version (équivalent à image tag)
+      OTEL_VERSION: "${BEST_PPN_API_VERSION}"
+      # Attributs OpenTelemetry
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=convergence-best-ppn-api,deployment.environment=${OTEL_ENVIRONMENT},service.namespace=${OTEL_NAMESPACE},host.name=${HOSTNAME},service.version=${BEST_PPN_API_VERSION}"
+      OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
+      OTEL_METRICS_EXPORTER: ${OTEL_METRICS_EXPORTER}
+      OTEL_LOGS_EXPORTER: ${OTEL_LOGS_EXPORTER}
+      OTEL_TRACES_EXPORTER: ${OTEL_TRACES_EXPORTER}
+      HOSTNAME: ${HOSTNAME}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
       - "co.elastic.logs/enabled=true"
