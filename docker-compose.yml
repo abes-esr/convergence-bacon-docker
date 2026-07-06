@@ -208,6 +208,7 @@ services:
     mem_limit: ${MEM_LIMIT}
     volumes:
       - ${PATH_LIBS}/ojdbc.jar:/kafka2sudoc/lib/ojdbc.jar
+      - ${KAFKA2SUDOC_PATH_ERRORS}:/tempLog/
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
       # dans le code ici:
@@ -231,6 +232,7 @@ services:
       SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
       MAIL_WS_URL: ${MAIL_WS_URL}
       MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_SUDOC}
+      ABES_PATH_TO_ERRORS: /tempLog/
       _JAVA_OPTIONS: ${KAFKA2SUDOC_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
