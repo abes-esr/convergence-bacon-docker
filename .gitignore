@@ -36,3 +36,4 @@ build/
 
 volumes
 .worktrees/
+__pycache__/
