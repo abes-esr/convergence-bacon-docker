@@ -20,7 +20,7 @@ Le docker-compose.yml définit les containers suivants (hors Watchtower)
 
 Disposer de :
 - ``docker``
-- ``docker-compose``
+- ``docker compose``
 
 ## Installation
 
@@ -40,10 +40,19 @@ cp .env-dist .env
 
 **Note : les mots de passe de la base de donnée xml de test ne sont pas présent dans le fichier au moment de la copie. Vous devez aller les renseigner manuellement en editant le fichier dans la console avec nano par exemple**
 
-Démarrer l'application :
+Initialiser ou mettre à jour la configuration Elasticsearch, puis démarrer l'application :
 ```bash
 cd /opt/pod/convergence-bacon-docker/
-docker-compose up -d
+docker compose run --rm logskbart-init
+docker compose up -d
+```
+
+La première commande doit terminer avec le code ``0``. Le conteneur temporaire est supprimé automatiquement. La seconde commande ne doit être exécutée que si l'initialisation a réussi.
+
+Lors de la première mise à jour depuis l'ancien service persistant, supprimer une seule fois le conteneur arrêté :
+
+```bash
+docker compose rm -f logskbart-init
 ```
 
 Remarque : retirer le ``-d`` pour voir passer les logs dans le terminal et utiliser alors CTRL+C pour stopper l'application
@@ -51,12 +60,12 @@ Remarque : retirer le ``-d`` pour voir passer les logs dans le terminal et utili
 ```bash
 # pour stopper l'application
 cd /opt/pod/convergence-bacon-docker/
-docker-compose stop
+docker compose stop
 
 
 # pour redémarrer l'application
 cd /opt/pod/convergence-bacon-docker/
-docker-compose restart
+docker compose restart
 ```
 
 ## Supervision
@@ -64,7 +73,7 @@ docker-compose restart
 ```bash
 # pour visualiser les logs de l'appli
 cd /opt/pod/convergence-bacon-docker/
-docker-compose logs -f --tail=100
+docker compose logs -f --tail=100
 ```
 
 Cela va afficher les 100 dernière lignes de logs générées par l'application et toutes les suivantes jusqu'au CTRL+C qui stoppera l'affichage temps réel des logs.
@@ -94,8 +103,9 @@ Le fait de passer ``KBART2KAFKA_WATCHTOWER_RUN_ONCE`` à false va faire en sorte
 
 Pour récupérer et démarrer la dernière version de l'application vous pouvez le faire manuellement comme ceci :
 ```bash
-docker-compose pull
-docker-compose up
+docker compose pull
+docker compose run --rm logskbart-init
+docker compose up
 ```
 Le ``pull`` aura pour effet de télécharger l'éventuelle dernière images docker disponible pour la version glissante en cours (ex: ``develop-kbart2kafka-api`` ou ``main-kbart2kafka-api``). Sans le pull c'est la dernière image téléchargée qui sera utilisée.
 
