@@ -165,7 +165,7 @@ services:
   sudoc-api:
     image: abesesr/sudoc:${SUDOC_API_VERSION}
     container_name: sudoc-api
-    restart: no
+    restart: unless-stopped
     mem_limit: ${MEM_LIMIT}
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
@@ -208,7 +208,6 @@ services:
     mem_limit: ${MEM_LIMIT}
     volumes:
       - ${PATH_LIBS}/ojdbc.jar:/kafka2sudoc/lib/ojdbc.jar
-      - ${KAFKA2SUDOC_PATH_ERRORS}:/tempLog/
     environment:
       # Pour basculer sur bon application-xxx.properties préalablement embarqué
       # dans le code ici:
@@ -232,7 +231,6 @@ services:
       SPRING_DATASOURCE_BACON_PASSWORD: ${BACON_PASSWORD}
       MAIL_WS_URL: ${MAIL_WS_URL}
       MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_SUDOC}
-      ABES_PATH_TO_ERRORS: /tempLog/
       _JAVA_OPTIONS: ${KAFKA2SUDOC_JAVA_OPTIONS}
     labels:
       # pour envoyer les logs dans le puits de log de l'abes
@@ -306,7 +304,6 @@ services:
       # voir le contenu des application-xxx.properties embarqués dans le code sources
       ABES_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
       ABES_NBTHREAD: ${ABES_NBTHREAD}
-      ABES_PATH_TO_REPORTS: ${ABES_PATH_TO_REPORTS:-/tempLog/}
       MAIL_WS_URL: ${MAIL_WS_URL}
       SPRING_ELASTICSEARCH_URIS: http://logskbart-elasticsearch:9200
       MAIL_WS_RECIPIENT: ${MAIL_WS_RECIPIENT_KBART_2_BACON}
@@ -381,17 +378,26 @@ services:
   #  Config de ES
   ##################################
   logskbart-init:
-    profiles:
-      - init
+    container_name: logskbart-init
     image: curlimages/curl:8.6.0
     depends_on:
-      logskbart-elasticsearch:
-        condition: service_healthy
+      - logskbart-elasticsearch
     volumes:
-      - ./logskbart-init:/logskbart-init:ro
-    entrypoint:
-      - /bin/sh
-      - /logskbart-init/init.sh
+      - ./logskbart-init:/logskbart-init
+    entrypoint: >
+      sh -c "echo 'Attente...' &&
+             until curl -s http://logskbart-elasticsearch:9200 >/dev/null; do sleep 5; done &&
+             echo 'Vérification de l’existence de l’index...' &&
+             if curl -s -o /dev/null -w '%{http_code}' -I http://logskbart-elasticsearch:9200/logkbart | grep -q '200'; then
+               echo 'Index déjà existant, skip création.';
+             else
+               echo 'Création index...';
+               curl -s -X PUT http://logskbart-elasticsearch:9200/logkbart -H 'Content-Type: application/json' -d @/logskbart-init/create_index.json;
+             fi &&
+             echo 'Création ILM...' &&
+             curl -s -X PUT http://logskbart-elasticsearch:9200/_ilm/policy/logkbart-retention -H 'Content-Type: application/json' -d @/logskbart-init/ilm_policy.json &&
+             curl -s -X PUT http://logskbart-elasticsearch:9200/_index_template/logkbart-template -H 'Content-Type: application/json' -d @/logskbart-init/index_template.json
+      "
 
 
   #######################################
